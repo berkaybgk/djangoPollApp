@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Polls</title>
+</head>
+<body>
+
+    <h1>Polls</h1>
+
+    <!-- Button to add a new question -->
+    <a href="{% url 'polls:question_add' %}">
+        <button type="button">Add New Question</button>
+    </a>
+
+    {% if latest_question_list %}
+        <ul>
+            {% for question in latest_question_list %}
+
+                <li>
+                    {{ question.id }} --
+                    <a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+
+                </li>
+                <!-- Edit and Delete buttons for each question -->
+                    <a href="{% url 'polls:question_edit' question.id %}">
+                        <button type="button">Edit</button>
+                    </a>
+                    <br>
+                    <a href="{% url 'polls:question_delete' question.id %}">
+                        <button type="button">Delete</button>
+                    </a>
+                <hr>
+
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+
+</body>
+</html>
